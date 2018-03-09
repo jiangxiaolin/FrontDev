@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="Ext/jquery1.8.3.js"></script>
+    <script  src="Ext/layer.js"></script>
+</head>
+<body>
+<button id="test">layer 弹窗测试</button>
+<button id="test2">ajax</button>
+<script type="text/javascript">
+    $("#test").on('click',function(){
+      //  layer.msg('this is layer test');
+        layer.alert('eee');
+    });
+    $("#test2").on('click',function(){
+        layer.open({
+            type:2,
+            area:['600px','300px'],
+            maxmin:true,
+            shadeClose:true,
+            content:'http://layer.layui.com/test/iframe.html'
+        });
+    });
+</script>
+</body>
+</html>

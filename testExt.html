@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="Ext/ext-all.css">
+    <link rel="stylesheet" type="text/css" href="Ext/ext-theme-classic/ext-theme-classic-all.css">
+    <script type="text/javascript" src="Ext/jquery1.8.3.js"></script>
+    <script type="text/javascript" src="Ext/ext-all.js"></script>
+<!--    <script type="text/javascript" src="/Ext/index.js"></script>-->
+</head>
+<body>
+<script type="text/javascript">
+    window.onbeforeunload = OnBeforeUnLoad;
+    function OnBeforeUnLoad () {
+        return "All data that you have entered will be lost!";
+    }
+</script>
+<script type="text/javascript">
+   Ext.onReady(function(){
+       Ext.create('Ext.panel.Panel', {
+           renderTo: Ext.getBody(),
+           width: 400,
+           height: 300,
+           title: 'Container Panel',
+           items: [
+               {
+                   xtype: 'panel',
+                   title: 'Child Panel 1',
+                   height: 100,
+                   width: '75%'
+               },
+               {
+                   xtype: 'panel',
+                   title: 'Child Panel 2',
+                   height: 100,
+                   width: '75%'
+               }
+           ]
+       });
+   });
+
+   var store = Ext.create('Ext.data.TreeStore', {
+       root: {
+           expanded: true,
+           children: [
+               { text: "detention", leaf: true },
+               { text: "homework", expanded: true, children: [
+                   { text: "book report", leaf: true },
+                   { text: "algebra", leaf: true}
+               ] },
+               { text: "buy lottery tickets", leaf: true }
+           ]
+       }
+   });
+
+   Ext.create('Ext.tree.Panel', {
+       title: 'Simple Tree',
+       width: 200,
+       height: 150,
+       store: store,
+       rootVisible: false,
+       renderTo: Ext.getBody()
+   });
+
+   Ext.create('Ext.data.Store', {
+       storeId:'simpsonsStore',
+       fields:['name', 'email', 'phone'],
+       data:{'items':[
+           { 'name': 'Lisa',  "email":"lisa@simpsons.com",  "phone":"555-111-1224"  },
+           { 'name': 'Bart',  "email":"bart@simpsons.com",  "phone":"555-222-1234" },
+           { 'name': 'Homer', "email":"home@simpsons.com",  "phone":"555-222-1244"  },
+           { 'name': 'Marge', "email":"marge@simpsons.com", "phone":"555-222-1254"  }
+       ]},
+       proxy: {
+           type: 'memory',
+           reader: {
+               type: 'json',
+               root: 'items'
+           }
+       }
+   });
+
+   Ext.create('Ext.grid.Panel', {
+       title: 'Simpsons',
+       store: Ext.data.StoreManager.lookup('simpsonsStore'),
+       columns: [
+           { text: 'Name',  dataIndex: 'name' },
+           { text: 'Email', dataIndex: 'email', flex: 1 },
+           { text: 'Phone', dataIndex: 'phone' }
+       ],
+       height: 200,
+       width: 400,
+       renderTo: Ext.getBody()
+   });
+
+
+   Ext.define('User', {
+       extend: 'Ext.data.Model',
+       fields: [
+           {name: 'firstName', type: 'string'},
+           {name: 'lastName',  type: 'string'},
+           {name: 'age',       type: 'int'},
+           {name: 'eyeColor',  type: 'string'}
+       ]
+   });
+
+
+   Ext.create('Ext.data.Store', {
+       model: 'User',
+       data : [
+           {firstName: 'Ed',    lastName: 'Spencer'},
+           {firstName: 'Tommy', lastName: 'Maintz'},
+           {firstName: 'Aaron', lastName: 'Conran'},
+           {firstName: 'Jamie', lastName: 'Avins'}
+       ]
+   });
+
+
+
+
+   Ext.create('Ext.container.Viewport', {
+       layout: 'border',
+       items: [{
+           region: 'north',
+           html: '<h1 class="x-panel-header">Page Title</h1>',
+           border: false,
+           margins: '0 0 5 0'
+       }, {
+           region: 'west',
+           collapsible: true,
+           title: 'Navigation',
+           width: 150
+           // could use a TreePanel or AccordionLayout for navigational items
+       }, {
+           region: 'south',
+           title: 'South Panel',
+           collapsible: true,
+           html: 'Information goes here',
+           split: true,
+           height: 100,
+           minHeight: 100
+       }, {
+           region: 'east',
+           title: 'East Panel',
+           collapsible: true,
+           split: true,
+           width: 150
+       }, {
+           region: 'center',
+           xtype: 'tabpanel', // TabPanel itself has no title
+           activeTab: 0,      // First tab active by default
+           items: {
+               title: 'Default Tab',
+               html: 'The first tab\'s content. Others may be added dynamically'
+           }
+       }]
+   });
+</script>
+hhhfff
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="Ext/ext-all.css">
+    <link rel="stylesheet" type="text/css" href="Ext/ext-theme-classic/ext-theme-classic-all.css">
+    <script type="text/javascript" src="Ext/jquery1.8.3.js"></script>
+    <script type="text/javascript" src="Ext/ext-all.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+    Ext.onReady(function(){
+        var store = Ext.create('Ext.data.JsonStore', {
+            fields: ['name', 'data'],
+            data: [
+                { 'name': '北京',   'data': 10 },
+                { 'name': '天津',   'data':  5},
+                { 'name': '上海',   'data':  8 },
+                { 'name': '深圳',   'data':  7 },
+                { 'name': '广州',   'data':  6 },
+                { 'name': '济南',   'data':  5 },
+                { 'name': '郑州',   'data':  4 },
+                { 'name': '石家庄',   'data':  3 },
+                { 'name': '北京',   'data': 10 },
+                { 'name': '天津',   'data':  5},
+                { 'name': '上海',   'data':  8 },
+                { 'name': '深圳',   'data':  7 },
+                { 'name': '广州',   'data':  6 },
+                { 'name': '济南',   'data':  5 },
+                { 'name': '郑州',   'data':  4 },
+                { 'name': '石家庄',   'data':  3 },
+                { 'name': '北京',   'data': 10 },
+                { 'name': '天津',   'data':  5},
+                { 'name': '上海',   'data':  8 },
+                { 'name': '深圳',   'data':  7 },
+                { 'name': '广州',   'data':  6 },
+                { 'name': '济南',   'data':  5 },
+                { 'name': '郑州',   'data':  4 },
+                { 'name': '石家庄',   'data':  3 },
+                { 'name': '深圳',   'data':  7 },
+                { 'name': '广州',   'data':  6 },
+                { 'name': '济南',   'data':  5 },
+                { 'name': '郑州',   'data':  4 },
+                { 'name': '石家庄',   'data':  3 }
+            ]
+        });
+        Ext.create("Ext.panel.Panel",{
+            width:600,
+            height:500,
+            title:"饼状图",
+            layout:"fit",
+            renderTo:Ext.getBody(),
+            items:[{
+                xtype:"chart",
+                store:store,
+                animate:true,
+                legend: {
+                    position: 'right'
+                },
+                series:[{
+                    type:"pie",
+                    field:"data",
+                    donut:true,
+                    showInLegend: true,
+                    label:{
+                        display:"name",
+                        contrast:true,
+                    },
+                    tips:{
+                        trackMouse:true,
+                        renderer:function(storeItem,item){
+                            var total = 0;
+                            store.each(function(rec) {
+                                total += rec.get('data');
+                            });
+                            this.setTitle(storeItem.get("data"));
+                        }
+                    },
+                    highlight:{
+                        segment:{
+                            margin:20
+                        }
+                    },
+                    listeners:{
+                        itemclick:function(o){
+                            var rec=store.getAt(o.index);
+                            alert(rec.get("data"));
+                        }
+                    }
+
+                }]
+            }]
+        });
+    })
+    复制代码
+</script>
+</body>
+</html>
